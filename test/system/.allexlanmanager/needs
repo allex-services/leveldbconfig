@@ -1,0 +1,10 @@
+[
+  {
+    "modulename": "allex_leveldbconfigservice",
+    "instancename": "Config",
+    "propertyhash": {
+      "path": "config.db",
+      "fields": ["width", "height", "weight"]
+    }
+  }
+]

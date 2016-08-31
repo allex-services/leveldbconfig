@@ -1,0 +1,21 @@
+{
+  "name": "allex_leveldbconfigservice",
+  "version": "0.1.0",
+  "description": "LevelDBConfigService",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url" : "git@gitlab.hers.rs:allex_services/leveldbconfig"
+  },
+  "keywords": [
+    "ecosystem:allex",
+    "Service",
+    "LevelDBConfig"
+  ],
+  "author": "HERS Belgrade",
+  "license": "ISC"
+}
+
