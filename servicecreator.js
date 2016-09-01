@@ -65,7 +65,7 @@ function createLevelDBConfigService(execlib, ParentService) {
 
   LevelDBConfigService.prototype._configPutter = function (retobj, conffieldname) {
     var _q = q,
-      ret = this.get(conffieldname).then(function (conffieldvalue) {
+      ret = this.safeGet(conffieldname,null).then(function (conffieldvalue) {
         var ret = _q(true);
         retobj[conffieldname] = conffieldvalue;
         _q = null;

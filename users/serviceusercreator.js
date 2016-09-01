@@ -18,10 +18,6 @@ function createServiceUser(execlib, ParentUser) {
     ParentUser.prototype.__cleanUp.call(this);
   };
 
-  ServiceUser.prototype.putDefaultValues = function(dfltVal,defer){
-    qlib.promise2defer(this.__service.putDefaultValues(dfltVal),defer);
-  };
-
   return ServiceUser;
 }
 

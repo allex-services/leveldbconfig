@@ -17,6 +17,7 @@ function go(taskobj){
     console.log.bind(console,'GET CONFIG'),
     console.error.bind(console,'GET CONFIG ERROR')
   );
+  /*
   confsink.call('put','width',10).then(
     console.log.bind(console,'PUT WIDTH OK'),
     console.error.bind(console,'PUT WIDTH ERROR')
@@ -29,6 +30,7 @@ function go(taskobj){
     console.log.bind(console,'PUT WIDTH OK'),
     console.error.bind(console,'PUT WIDTH ERROR')
   );
+  */
 }
 
 module.exports = {
