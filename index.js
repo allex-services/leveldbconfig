@@ -6,11 +6,10 @@ function createServicePack(execlib) {
     },
     sinkmap: {
       dependencies: ['allex:leveldbwithlog']
-    }, /*
+    }, 
     tasks: {
       dependencies: []
     }
-    */
   }
 }
 
