@@ -49,7 +49,7 @@ function createHookToLevelDBConfigTask (execlib) {
 
   HookToLevelDBConfigTask.prototype.instantiateTargetMap = function(value,key){
     //we are modifying map only if value doesnt already exist in map
-    if (lib.isUndef(this.targetMap.get(key))){
+    try{
       if (value === null){
         this.targetMap.add(key,0);
         return;
@@ -58,6 +58,8 @@ function createHookToLevelDBConfigTask (execlib) {
         this.targetMap.add(key,value);
         return;
       }
+    }catch(e){
+      console.log('Key: ' + key + ' already exists in config!');
     }
   };
 
@@ -70,7 +72,7 @@ function createHookToLevelDBConfigTask (execlib) {
     var key = recordArry[0],
       value = recordArry[1];
     if (lib.isDefinedAndNotNull(value)){
-      this.targetMap.add(key,value);
+      this.targetMap.replace(key,value);
       return;
     }
     if (value === null){
