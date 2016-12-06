@@ -1,3 +1,7 @@
 node_modules/*
 *.swp
 *.swo
+allexmaster.pid
+needs.overlay
+needs.runtime
+config.db
