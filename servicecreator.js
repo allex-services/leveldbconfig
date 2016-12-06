@@ -1,9 +1,10 @@
-function createLevelDBConfigService(execlib, ParentService) {
+function createLevelDBConfigService(execlib, ParentService, leveldbconfiglib) {
   'use strict';
 
   var lib = execlib.lib,
     q = lib.q,
-    qlib = lib.qlib;
+    qlib = lib.qlib,
+    LevelDBConfigMixin = leveldbconfiglib.LevelDBConfigMixin;
   
 
   function factoryCreator(parentFactory) {
@@ -15,22 +16,19 @@ function createLevelDBConfigService(execlib, ParentService) {
 
   function LevelDBConfigService(prophash) {
     ParentService.call(this, prophash);
-    this.fields = prophash.fields.slice();
+    LevelDBConfigMixin.call(this, prophash);
   }
   
   ParentService.inherit(LevelDBConfigService, factoryCreator);
+  LevelDBConfigMixin.addMethods(LevelDBConfigService);
   
   LevelDBConfigService.prototype.__cleanUp = function() {
-    this.fields = null;
+    LevelDBConfigMixin.prototype.destroy.call(this);
     ParentService.prototype.__cleanUp.call(this);
   };
 
   LevelDBConfigService.prototype.isInitiallyReady = function (prophash){
     return false;
-  };
-
-  LevelDBConfigService.prototype._putDefault = function(promiseArry,dfltVal,field){
-    promiseArry.push(this.put(field,dfltVal));
   };
 
   LevelDBConfigService.prototype.putDefaultValues = function(dfltVal){
@@ -39,47 +37,6 @@ function createLevelDBConfigService(execlib, ParentService) {
     return q.all(promiseArry).then(
       this.readyToAcceptUsersDefer.resolve.bind(this.readyToAcceptUsersDefer,true),
       console.error.bind(console,'Error on putting default')
-    );
-  };
-
-  LevelDBConfigService.prototype.put = function(key,value){
-    if (this.fields.indexOf(key) < 0){
-      return q.reject(new lib.Error('NOT_A_CONFIG_FIELD',key));
-    }
-    return ParentService.prototype.put.call(this,key,value);
-  };
-
-  LevelDBConfigService.prototype.safeGet = function(key, deflt){
-    if (this.fields.indexOf(key) < 0){
-      return q.reject(new lib.Error('NOT_A_CONFIG_FIELD',key));
-    }
-    return ParentService.prototype.safeGet.call(this,key,deflt);
-  };
-
-  LevelDBConfigService.prototype.getWDefault = function(key, deflt){
-    if (this.fields.indexOf(key) < 0){
-      return q.reject(new lib.Error('NOT_A_CONFIG_FIELD',key));
-    }
-    return ParentService.prototype.getWDefault.call(this,key,deflt);
-  };
-
-  LevelDBConfigService.prototype._configPutter = function (retobj, conffieldname) {
-    var _q = q,
-      ret = this.safeGet(conffieldname,null).then(function (conffieldvalue) {
-        var ret = _q(true);
-        retobj[conffieldname] = conffieldvalue;
-        _q = null;
-        retobj = null;
-        conffieldname = null;
-        return ret;
-      });
-    return ret;
-  };
-
-  LevelDBConfigService.prototype.getConfig = function(){
-    var ret = {}, promises = this.fields.map(this._configPutter.bind(this, ret));
-    return q.all(promises).then(
-      qlib.returner(ret)
     );
   };
 

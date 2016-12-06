@@ -2,7 +2,7 @@ function createServicePack(execlib) {
   'use strict';
   return {
     service: {
-      dependencies: ['allex:leveldbwithlog']
+      dependencies: ['allex:leveldbwithlog', 'allex:leveldbconfig:lib']
     },
     sinkmap: {
       dependencies: ['allex:leveldbwithlog']
