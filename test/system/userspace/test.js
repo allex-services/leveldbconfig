@@ -15,6 +15,19 @@ function go(taskobj){
   qlib = lib.qlib,
   p2c = qlib.promise2console,
   executor = qlib.executor;
+  execLib.execSuite.taskRegistry.run('queryLevelDB', {
+    sink: confsink,
+    scanInitially: true,
+    filter: {
+      keys: {
+        op: 'eq',
+        field: null,
+        value: 'width'
+      }
+    },
+    onPut: console.log.bind(console, 'qput'),
+    onDel: console.log.bind(console, 'qdel')
+  });
   /*
   confsink.call('getConfig').then(
     console.log.bind(console,'GET CONFIG'),
