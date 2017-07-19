@@ -1,6 +1,6 @@
 {
   "name": "allex_leveldbconfigservice",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "LevelDBConfigService",
   "main": "index.js",
   "scripts": {
