@@ -41,6 +41,10 @@ function createLevelDBConfigService(execlib, ParentService, leveldbconfiglib) {
   };
 
   LevelDBConfigService.prototype.propertyHashDescriptor = {
+    path: {
+      type: ['string', 'array'],
+      items: {type: 'string'}
+    },
     fields: {
       type: 'array',
       items: {type: 'string'}
